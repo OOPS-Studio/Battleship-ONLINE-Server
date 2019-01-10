@@ -1,0 +1,19 @@
+{
+    "name": "battleship-online",
+    "version": "1.0.0",
+    "description": "An action packed, online, multiplayer Battleship game!",
+    "main": "index.js",
+    "engines": {
+        "node": "10.3.0"
+    },
+    "scripts": {
+        "start": "node index.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "http": "0.0.0",
+        "ws": "6.1.2"
+    }
+}
