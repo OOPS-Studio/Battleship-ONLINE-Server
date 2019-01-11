@@ -70,9 +70,13 @@ wsServer.on("request",function(request){//When a user joins...
     var connection = request.accept(null,request.origin);//Accept the connection
     var index = clients.push(connection) - 1;//Add the client's index so it can be accessed later. (And tracked)
     var userName = "Player " + (index + 1);//Give the user a name
+    var json = {//Send the username to the user.
+        username: userName
+    };
+    connection.sendUTF(json);
     connection.on('message',function(message){//When a user sends a message...
         if(message.type === 'utf8'){//Make sure it's text
-            var mes = prepareMessage(message);//Prepare the message
+            var mes = prepareMessage(JSON.parse(message));//Prepare the message
             if(mes === 0){//If the message is not a move or a text, quit.
                 return;
             }else if(mes.type === 1){//If the message is a move...
