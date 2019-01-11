@@ -73,7 +73,7 @@ wsServer.on("request",function(request){//When a user joins...
     var json = {//Send the username to the user.
         username: userName
     };
-    connection.sendUTF(json);
+    connection.sendUTF(JSON.stringify(json));
     connection.on('message',function(message){//When a user sends a message...
         if(message.type === 'utf8'){//Make sure it's text
             var mes = prepareMessage(JSON.parse(message));//Prepare the message
