@@ -40,13 +40,13 @@ function prepareMessage(obj){
     return 2 and the cleaned message if the message is a text,
     return 0 if the message is a move, but not a valid one.
     */
-    if(obj.movex && obj.movey && typeof obj.movex === "number" && typeof obj.movey === "number" && obj.movex < 11 && obj.movey < 11){//Make sure the message IS a move. NO EXCEPTIONS. Since this string isn't cleaned it MUST be clean to make it to the moves. It must also be between 1-10
+    if(typeof obj.movex === "number" && typeof obj.movey === "number" && obj.movex < 11 && obj.movey < 11){//Make sure the message IS a move. NO EXCEPTIONS. Since this string isn't cleaned it MUST be clean to make it to the moves. It must also be between 1-10
         return {
             type: 1,
             movex: obj.movex,
             movey: obj.movey
         };
-    }else if(obj.value && typeof obj.value === "string"){//Make sure the input is a string before it can be cleaned.
+    }else if(typeof obj.value === "string"){//Make sure the input is a string before it can be cleaned.
         return {
             type: 2,
             value: htmlEntities(obj.value)//Clean the string
@@ -96,13 +96,11 @@ wsServer.on("request",function(request){//When a user joins...
             }else if(mes.type === 2){//If the message is a text...
                 var obj = {
                     text: mes.value,
-                    author: userName
+                    author: userName,
+                    player: index
                 };
             }
-            var json = JSON.stringify({//Stringify the obj...
-                type: "text",
-                data: obj
-            });
+            var json = JSON.stringify(obj);
             for(var i=0; i < clients.length; i++){//Send it to all the connected clients...
                 clients[i].sendUTF(json);
             }
