@@ -84,7 +84,11 @@ wsServer.on("request",function(request){//When a user joins...
                 if(turn !== index){
                     return;
                 }
-                turn = !turn;
+                if(turn === 0){
+                    turn = 1;
+                }else{
+                    turn = 0;
+                }
                 var value = boards[turn][mes.movey][mes.movex];
                 if((value > 0 && value < 4) || value > 8){
                     return;
