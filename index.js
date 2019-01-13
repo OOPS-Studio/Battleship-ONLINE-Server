@@ -120,7 +120,7 @@ wsServer.on("request",function(request){//When a user joins...
                     }
                 }
                 obj = {
-                    result: value,
+                    result: toReturn,
                     movex: mes.movex,
                     movey: mes.movey,
                     author: index
