@@ -114,11 +114,11 @@ wsServer.on("request",function(request){//When a user joins...
                             }
                         }
                     }
-                    if(sunk){
+                    /*if(sunk){
                         for(var i = 0;i < spots.length;i++){
                             boards[turn][spots[i][0]][spots[i][1]] = 3;
                         }
-                    }
+                    }*/
                 }
                 obj = {
                     result: toReturn,
