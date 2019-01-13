@@ -81,9 +81,9 @@ wsServer.on("request",function(request){//When a user joins...
             if(mes === 0){//If the message is not a move or a text, quit.
                 return;
             }else if(mes.type === 1){//If the message is a move...
-                /*if(turn !== index){
+                if(turn !== index){
                     return;
-                }*/
+                }
                 var value = boards[1][mes.movey][mes.movex];
                 if((value > 0 && value < 4) || value > 8){
                     return;
