@@ -76,9 +76,9 @@ wsServer.on("request",function(request){//When a user joins...
     connection.sendUTF(JSON.stringify(json));
     connection.on('message',function(message){//When a user sends a message...
         if(message.type === 'utf8'){//Make sure it's text
-            var mes = prepareMessage(JSON.parse(message.data));//Prepare the message
-            var obj;
-            if(mes === 0){//If the message is not a move or a text, quit.
+            //var mes = prepareMessage(JSON.parse(message.data));//Prepare the message
+            var obj = message.data;
+            /*if(mes === 0){//If the message is not a move or a text, quit.
                 return;
             }else if(mes.type === 1){//If the message is a move...
                 if(turn !== index){
@@ -100,7 +100,7 @@ wsServer.on("request",function(request){//When a user joins...
                     author: userName,
                     player: index
                 };
-            }
+            }*/
             if(obj){
                 var json = JSON.stringify(obj);
                 for(var i = 0;i < clients.length;i++){//Send it to all the connected clients...
