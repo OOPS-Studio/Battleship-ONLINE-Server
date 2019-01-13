@@ -40,20 +40,20 @@ function prepareMessage(obj){
     return 2 and the cleaned message if the message is a text,
     return 0 if the message is a move, but not a valid one.
     */
-    /*if(typeof obj.movex !== "undefined" && typeof obj.movey !== "undefined" && typeof obj.movex === "number" && typeof obj.movey === "number" && obj.movex < 10 && obj.movey < 10 && obj.movex > -1 && obj.movey > -1){//Make sure the message IS a move. NO EXCEPTIONS. Since this string isn't cleaned it MUST be clean to make it to the moves. It must also be between 1-10
+    if(typeof obj.movex !== "undefined" && typeof obj.movey !== "undefined" && typeof obj.movex === "number" && typeof obj.movey === "number" && obj.movex < 10 && obj.movey < 10 && obj.movex > -1 && obj.movey > -1){//Make sure the message IS a move. NO EXCEPTIONS. Since this string isn't cleaned it MUST be clean to make it to the moves. It must also be between 1-10
         return {
             type: 1,
             movex: obj.movex,
             movey: obj.movey
         };
-    }else if(typeof obj.value !== "undefined" && typeof obj.value === "string"){//Make sure the input is a string before it can be cleaned.*/
+    }else if(typeof obj.value !== "undefined" && typeof obj.value === "string"){//Make sure the input is a string before it can be cleaned.
         return({
             type: 2,
             value: obj.value//Clean the string
         });
-    /*}else{//If it's not a move or a text, it will be ignored
+    }else{//If it's not a move or a text, it will be ignored
         return(0);
-    }*/
+    }
 }
 var server = http.createServer(function(request,response){});//Create an HTTP server.
 server.listen(webSocketsServerPort, function() {//Listen on port 8081
@@ -76,9 +76,9 @@ wsServer.on("request",function(request){//When a user joins...
     connection.sendUTF(JSON.stringify(json));
     connection.on('message',function(message){//When a user sends a message...
         if(message.type === 'utf8'){//Make sure it's text
-            //var mes = prepareMessage(JSON.parse(message.data));//Prepare the message
-            var obj = message;
-            /*if(mes === 0){//If the message is not a move or a text, quit.
+            var mes = prepareMessage(JSON.parse(message.utf8Data));//Prepare the message
+            var obj;
+            if(mes === 0){//If the message is not a move or a text, quit.
                 return;
             }else if(mes.type === 1){//If the message is a move...
                 if(turn !== index){
@@ -100,7 +100,7 @@ wsServer.on("request",function(request){//When a user joins...
                     author: userName,
                     player: index
                 };
-            }*/
+            }
             if(obj){
                 var json = JSON.stringify(obj);
                 for(var i = 0;i < clients.length;i++){//Send it to all the connected clients...
