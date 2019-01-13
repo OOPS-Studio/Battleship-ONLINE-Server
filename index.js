@@ -40,13 +40,13 @@ function prepareMessage(obj){
     return 2 and the cleaned message if the message is a text,
     return 0 if the message is a move, but not a valid one.
     */
-    if(typeof obj.movex === "number" && typeof obj.movey === "number" && obj.movex < 11 && obj.movey < 11){//Make sure the message IS a move. NO EXCEPTIONS. Since this string isn't cleaned it MUST be clean to make it to the moves. It must also be between 1-10
+    if(typeof obj.movex !== "undefined" && typeof obj.movey !== "undefined" && typeof obj.movex === "number" && typeof obj.movey === "number" && obj.movex < 10 && obj.movey < 10 && obj.movex > -1 && obj.movey > -1){//Make sure the message IS a move. NO EXCEPTIONS. Since this string isn't cleaned it MUST be clean to make it to the moves. It must also be between 1-10
         return {
             type: 1,
             movex: obj.movex,
             movey: obj.movey
         };
-    }else if(typeof obj.value === "string"){//Make sure the input is a string before it can be cleaned.
+    }else if(typeof obj.value !== "undefined" && typeof obj.value === "string"){//Make sure the input is a string before it can be cleaned.
         return {
             type: 2,
             value: htmlEntities(obj.value)//Clean the string
