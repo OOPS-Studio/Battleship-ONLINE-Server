@@ -99,9 +99,9 @@ wsServer.on("request",function(request){//When a user joins...
                     boards[turn][mes.movey][mes.movex] = 1;
                     toReturn = 1;
                 }else if(value > 3 && value < 9){
-                    var oldValue = boards[turn][iOB[0]][iOB[1]];
-                    boards[turn][iOB[0]][iOB[1]] += 5;
-                    toReturn = boards[turn][iOB[0]][iOB[1]];
+                    var oldValue = boards[turn][mes.movey][mes.movex];
+                    boards[turn][mes.movey][mes.movex] += 5;
+                    toReturn = boards[turn][mes.movey][mes.movex];
                     var sunk = true;
                     var spots = [];
                     for(var i = 0;i < boards[turn].length;i++){
