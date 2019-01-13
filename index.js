@@ -41,11 +41,11 @@ function prepareMessage(obj){
     return 0 if the message is a move, but not a valid one.
     */
     if(typeof obj.movex === "number" && typeof obj.movey === "number" && obj.movex < 10 && obj.movey < 10 && obj.movex > -1 && obj.movey > -1){//Make sure the message IS a move. NO EXCEPTIONS. Since this string isn't cleaned it MUST be clean to make it to the moves. It must also be between 1-10
-        return {
+        return({
             type: 1,
             movex: obj.movex,
             movey: obj.movey
-        };
+        });
     }else if(typeof obj.value === "string"){//Make sure the input is a string before it can be cleaned.
         return({
             type: 2,
@@ -85,7 +85,7 @@ wsServer.on("request",function(request){//When a user joins...
                     return;
                 }
                 var value = boards[!turn][mes.movey][mes.movex];
-                if(value < 4 && value > 8){
+                if((value > 0 && value < 4) || value > 8){
                     return;
                 }
                 obj = {
