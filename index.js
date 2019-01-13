@@ -90,8 +90,34 @@ wsServer.on("request",function(request){//When a user joins...
                     turn = 0;
                 }
                 var value = boards[turn][mes.movey][mes.movex];
+                var toReturn = 0;
                 if((value > 0 && value < 4) || value > 8){
                     return;
+                }
+                if(value === 0){
+                    boards[turn][mes.movey][mes.movex] = 1;
+                    toReturn = 1;
+                }else if(value > 3 && value < 9){
+                    var oldValue = boards[turn][iOB[0]][iOB[1]];
+                    boards[turn][iOB[0]][iOB[1]] += 5;
+                    toReturn = boards[turn][iOB[0]][iOB[1]];
+                    var sunk = true;
+                    var spots = [];
+                    for(var i = 0;i < boards[turn].length;i++){
+                        for(var j = 0;j < boards[turn][i].length;j++){
+                            if(boards[turn][i][j] === oldValue + 5){
+                                spots.push([i,j]);
+                            }
+                            if(boards[turn][i][j] === oldValue){
+                                sunk = false;
+                            }
+                        }
+                    }
+                    if(sunk){
+                        for(var i = 0;i < spots.length;i++){
+                            boards[turn][spots[i][0]][spots[i][1]] = 3;
+                        }
+                    }
                 }
                 obj = {
                     result: value,
