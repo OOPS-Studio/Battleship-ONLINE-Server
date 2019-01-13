@@ -92,6 +92,7 @@ wsServer.on("request",function(request){//When a user joins...
                 }*/
                 var value = boards[turn][mes.movey][mes.movex];
                 var toReturn = 0;
+                var sunk = true;
                 if((value > 0 && value < 4) || value > 8){
                     return;
                 } 
@@ -102,7 +103,6 @@ wsServer.on("request",function(request){//When a user joins...
                     var oldValue = boards[turn][mes.movey][mes.movex];
                     boards[turn][mes.movey][mes.movex] += 5;
                     toReturn = boards[turn][mes.movey][mes.movex];
-                    var sunk = true;
                     var spots = [];
                     for(var i = 0;i < boards[turn].length;i++){
                         for(var j = 0;j < boards[turn][i].length;j++){
@@ -114,14 +114,15 @@ wsServer.on("request",function(request){//When a user joins...
                             }
                         }
                     }
-                    /*if(sunk){
+                    if(sunk){
                         for(var i = 0;i < spots.length;i++){
                             boards[turn][spots[i][0]][spots[i][1]] = 3;
                         }
-                    }*/
+                    }
                 }
                 obj = {
                     result: toReturn,
+                    sunk: sunk,
                     movex: mes.movex,
                     movey: mes.movey,
                     author: index
