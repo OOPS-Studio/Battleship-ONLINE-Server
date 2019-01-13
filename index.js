@@ -83,7 +83,7 @@ wsServer.on("request",function(request){//When a user joins...
             }else if(mes.type === 1){//If the message is a move...
                 /*if(turn !== index){
                     return;
-                }
+                }*/
                 var value = boards[!turn][mes.movey][mes.movex];
                 if((value > 0 && value < 4) || value > 8){
                     return;
@@ -94,8 +94,7 @@ wsServer.on("request",function(request){//When a user joins...
                     movey: mes.movey,
                     author: index
                 };
-                turn = !turn;*/
-                obj = mes;
+                //turn = !turn;
             }else if(mes.type === 2){//If the message is a text...
                 obj = {
                     text: mes.value,
