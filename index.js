@@ -94,7 +94,7 @@ wsServer.on("request",function(request){//When a user joins...
                     movey: mes.movey,
                     author: index
                 };
-                //turn = !turn;
+                turn = !turn;
             }else if(mes.type === 2){//If the message is a text...
                 obj = {
                     text: mes.value,
