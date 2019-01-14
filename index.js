@@ -74,7 +74,15 @@ wsServer.on("request",function(request){//When a user joins...
         index: index,
         board: boards[index]
     };
-    connection.sendUTF(JSON.stringify(json));
+    connection.sendUTF(JSON.stringify(json);
+    if(clients.length === 2){
+        json = {//Let the user know their opponent joined! :P
+            text: "has joined!",
+            author: userName,
+            player: index
+        };
+        clients[0].sendUTF(JSON.stringify(json));
+    }
     connection.on('message',function(message){//When a user sends a message...
         if(message.type === 'utf8'){//Make sure it's text
             var mes = prepareMessage(JSON.parse(message.utf8Data));//Prepare the message
