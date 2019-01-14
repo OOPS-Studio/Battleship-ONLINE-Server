@@ -77,7 +77,7 @@ wsServer.on("request",function(request){//When a user joins...
     connection.sendUTF(JSON.stringify(json));
     if(clients.length === 2){
         var json = {//Let the user know their opponent joined! :P
-            text: "has joined!",
+            text: " has joined!",
             author: "Your opponent",
             player: index
         };
@@ -144,7 +144,7 @@ wsServer.on("request",function(request){//When a user joins...
                 };
             }else if(mes.type === 2){//If the message is a text...
                 obj = {
-                    text: ":" + mes.value,
+                    text: ": " + mes.value,
                     author: userName,
                     player: index
                 };
@@ -161,7 +161,7 @@ wsServer.on("request",function(request){//When a user joins...
         clients.splice(index, 1);//Delete them from the client list
         if(clients.length > 0){
             var json = {//Let the user know their opponent left! :P
-                text: "has left!",
+                text: " has left!",
                 author: "Your opponent",
                 player: index
             };
