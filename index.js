@@ -159,5 +159,17 @@ wsServer.on("request",function(request){//When a user joins...
     });
     connection.on('close', function(connection){//When a user leaves...
         clients.splice(index, 1);//Delete them from the client list
+        if(clients.length > 0){
+            var toSendUser = 0;
+            if(index === 0){
+                toSendUser = 1;
+            }
+            var json = {//Let the user know their opponent joined! :P
+                text: "has left!",
+                author: "Your opponent",
+                player: toSendUser
+            };
+            clients[0].sendUTF(JSON.stringify(json));
+        }
     });
 });
