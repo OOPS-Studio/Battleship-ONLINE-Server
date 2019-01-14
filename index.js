@@ -74,7 +74,7 @@ wsServer.on("request",function(request){//When a user joins...
         index: index,
         board: boards[index]
     };
-    connection.sendUTF(JSON.stringify(json);
+    connection.sendUTF(JSON.stringify(json));
     if(clients.length === 2){
         var json = {//Let the user know their opponent joined! :P
             text: "has joined!",
