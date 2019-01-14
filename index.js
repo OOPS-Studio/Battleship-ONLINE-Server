@@ -71,7 +71,7 @@ wsServer.on("request",function(request){//When a user joins...
     var index = clients.push(connection) - 1;//Add the client's index so it can be accessed later. (And tracked)
     var userName = "Player " + (index + 1);//Give the user a name
     var json = {//Send the username to the user.
-        username: userName,
+        index: index,
         board: boards[index]
     };
     connection.sendUTF(JSON.stringify(json));
