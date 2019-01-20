@@ -157,5 +157,4 @@ wsServer.on("request",function(request){//When a user joins...
             clients[0].sendUTF(JSON.stringify(json));
         }
     });
-    connection.close();
 });
