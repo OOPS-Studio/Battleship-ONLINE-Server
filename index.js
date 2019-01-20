@@ -72,7 +72,7 @@ wsServer.on("request",function(request){//When a user joins...
     }
     connection.on('message',function(message){//When a user sends a message...
         if(message.type === 'utf8'){//Make sure it's text
-            var mes = JSON.parse(message.utf8Data));
+            var mes = JSON.parse(message.utf8Data);
             if(!checkMessage(mes){//Make sure the message is clean.
                 return;
             }
