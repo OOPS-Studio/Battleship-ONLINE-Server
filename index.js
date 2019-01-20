@@ -34,29 +34,16 @@ var boards = [
 function htmlEntities(str) {//Cleans a string
     return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
-function prepareMessage(obj){
-    /*Prepare the message for use.
-    return 1 and the move x and y if the message is a move,
-    return 2 and the cleaned message if the message is a text,
-    return 0 if the message is a move, but not a valid one.
-    */
-    if(typeof obj.movex === "number" && typeof obj.movey === "number" && obj.movex < 10 && obj.movey < 10 && obj.movex > -1 && obj.movey > -1){//Make sure the message IS a move. NO EXCEPTIONS. Since this string isn't cleaned it MUST be clean to make it to the moves. It must also be between 1-10
-        return({
-            type: 1,
-            movex: obj.movex,
-            movey: obj.movey
-        });
-    }else if(typeof obj.value === "string"){//Make sure the input is a string before it can be cleaned.
-        return({
-            type: 2,
-            value: obj.value//Clean the string
-        });
-    }else{//If it's not a move or a text, it will be ignored
-        return(0);
-    }
+function checkMessage(obj){//Return whether or not the object is clean.
+    var messageType = obj.type || 0;
+    if((messageType === "move" && typeof obj.movex === "number" && typeof obj.movey === "number" && obj.movex < 10 && obj.movey < 10 && obj.movex > -1 && obj.movey > -1) || (messageType === "text" && typeof obj.value === "string")){//Make sure the message is clean.
+        return(true);
+    }else{//If it's not valid input, it will be ignored
+        return(false);
+    } 
 }
 var server = http.createServer(function(request,response){});//Create an HTTP server.
-server.listen(webSocketsServerPort, function() {//Listen on port 8081
+server.listen(webSocketsServerPort, function() {//Listen on specified port
     console.log((new Date()) + " Server is listening on port " + webSocketsServerPort);//Let me know so that I know my code is working...
 });
 var wsServer = new webSocketServer({//Create a webSocket server on the HTTP one above.
@@ -85,11 +72,13 @@ wsServer.on("request",function(request){//When a user joins...
     }
     connection.on('message',function(message){//When a user sends a message...
         if(message.type === 'utf8'){//Make sure it's text
-            var mes = prepareMessage(JSON.parse(message.utf8Data));//Prepare the message
-            var obj;
-            if(mes === 0){//If the message is not a move or a text, quit.
+            var mes = JSON.parse(message.utf8Data));
+            if(!checkMessage(mes){//Make sure the message is clean.
                 return;
-            }else if(mes.type === 1){//If the message is a move...
+            }
+            var obj;
+            var messageType = mes.type;
+            if(messageType === "move"){//If the message is a move...
                 if(turn !== index){
                     return;
                 }
@@ -142,7 +131,7 @@ wsServer.on("request",function(request){//When a user joins...
                     movey: mes.movey,
                     author: index
                 };
-            }else if(mes.type === 2){//If the message is a text...
+            }else if(messageType === "text"){//If the message is a text...
                 obj = {
                     text: ": " + mes.value,
                     author: userName,
