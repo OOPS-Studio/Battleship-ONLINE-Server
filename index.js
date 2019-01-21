@@ -133,7 +133,7 @@ wsServer.on("request",function(request){//When a user joins...
                 };
             }else if(messageType === "text"){//If the message is a text...
                 obj = {
-                    text: ": " + mes.value,
+                    text: ": " + htmlEntities(mes.value),
                     author: userName,
                     player: index
                 };
